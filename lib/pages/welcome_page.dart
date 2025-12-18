@@ -1,10 +1,33 @@
+import 'package:authapplication/app/mobile/auth_wrapper.dart';
 import 'package:authapplication/pages/login_page.dart';
 import 'package:authapplication/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
+
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  void getStarted() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('FirstTime', false);
+
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return AuthWrapper();
+          },
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,33 +51,10 @@ class WelcomePage extends StatelessWidget {
               SizedBox(height: 50.0),
               FilledButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return RegisterPage();
-                      },
-                    ),
-                  );
+                  getStarted();
                 },
-                child: Text('Register'),
+                child: Text('Get Started'),
                 style: FilledButton.styleFrom(
-                  minimumSize: Size(double.infinity, 40.0),
-                ),
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return LoginPage();
-                      },
-                    ),
-                  );
-                },
-                child: Text('Login'),
-                style: OutlinedButton.styleFrom(
                   minimumSize: Size(double.infinity, 40.0),
                 ),
               ),

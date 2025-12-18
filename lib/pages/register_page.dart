@@ -20,52 +20,20 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController controllerEmail = TextEditingController();
 
   TextEditingController controllerPass = TextEditingController();
-
   String errorMessage = '';
-
   void onRegister() async {
     try {
       await authService.value.createAccount(
         email: controllerEmail.text,
         password: controllerPass.text,
       );
+      selectedPageNotifier.value = 0;
       Navigator.pop(context);
-      errorMessage = '';
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = e.message ?? 'There was an error';
+        errorMessage = e.message ?? 'There has been an error';
       });
     }
-  }
-
-  void successDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Registered'),
-          content: Text('Your account has been registered successfully!'),
-          actions: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return WelcomePage();
-                    },
-                  ),
-                  (route) {
-                    return false;
-                  },
-                );
-              },
-              child: Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -102,7 +70,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Text(errorMessage, style: TextStyle(color: Colors.red)),
-
               FilledButton(
                 onPressed: () {
                   onRegister();

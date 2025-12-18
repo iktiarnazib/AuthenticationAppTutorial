@@ -15,25 +15,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController controllerEmail = TextEditingController(
-    text: 'wildlife@gmail.com',
-  );
-  TextEditingController controllerPass = TextEditingController(
-    text: '90861671',
-  );
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPass = TextEditingController();
   String errorMessage = '';
-
-  void signIn() async {
+  void onLogin() async {
     try {
       await authService.value.signIn(
         email: controllerEmail.text,
         password: controllerPass.text,
       );
       selectedPageNotifier.value = 0;
-      errorMessage = '';
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = e.message ?? 'There was an error';
+        errorMessage = e.message ?? 'There is an error';
       });
     }
   }
@@ -76,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
             Text(errorMessage, style: TextStyle(color: Colors.red)),
             FilledButton(
               onPressed: () {
-                signIn();
+                onLogin();
               },
               child: Text('Login'),
               style: FilledButton.styleFrom(
