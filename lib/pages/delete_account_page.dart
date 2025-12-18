@@ -18,17 +18,20 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   TextEditingController controllerPass = TextEditingController();
 
   String errorMessage = '';
-
-  void onDeleteAcc() async {
+  void onDelete() async {
     try {
       await authService.value.deleteAccount(
         email: controllerEmail.text,
         password: controllerPass.text,
       );
+      setState(() {
+        errorMessage = '';
+      });
       Navigator.pop(context);
-      errorMessage = '';
     } on FirebaseAuthException catch (e) {
-      errorMessage = e.message ?? 'There was an error';
+      setState(() {
+        errorMessage = e.message ?? 'There has been an error';
+      });
     }
   }
 
@@ -63,10 +66,10 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                 ),
               ),
             ),
-            Text(errorMessage),
+            Text(errorMessage, style: TextStyle(color: Colors.red)),
             FilledButton(
               onPressed: () {
-                onDeleteAcc();
+                onDelete();
               },
               child: Text('Delete account'),
               style: FilledButton.styleFrom(

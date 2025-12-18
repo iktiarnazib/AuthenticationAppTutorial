@@ -16,8 +16,7 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   List<Widget> pageList = [HomePage(), ProfilePage()];
 
-  final user = authService.value.currentUser;
-
+  User? user = authService.value.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +34,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                 color: Colors.teal,
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
-                  child: Text(user?.email ?? 'No user'),
+                  child: Text(user!.email ?? 'No user'),
                 ),
               ),
             ],

@@ -13,33 +13,15 @@ class ChangeUsername extends StatefulWidget {
 
 class _ChangeUsernameState extends State<ChangeUsername> {
   TextEditingController controllerUsername = TextEditingController();
-
   String errorMessage = '';
-
-  void changeUsername() async {
+  void updateUsername() async {
     try {
       await authService.value.updateUsername(username: controllerUsername.text);
-      errorMessage = '';
       Navigator.pop(context);
+      errorMessage = '';
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMessage = e.message ?? 'There was an error';
-      });
+      errorMessage = e.message ?? 'There is an error';
     }
-  }
-
-  void successSnackbar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Username has been updated!',
-          style: TextStyle(color: Colors.white),
-        ),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.pink,
-        duration: Duration(seconds: 2),
-      ),
-    );
   }
 
   @override
@@ -64,10 +46,9 @@ class _ChangeUsernameState extends State<ChangeUsername> {
               ),
             ),
             Text(errorMessage, style: TextStyle(color: Colors.red)),
-
             FilledButton(
               onPressed: () {
-                changeUsername();
+                updateUsername();
               },
               child: Text('Change Username'),
               style: FilledButton.styleFrom(

@@ -20,9 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       await authService.value.signOut();
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMessage = e.message ?? 'There was an error';
-      });
+      errorMessage = e.message ?? 'There has been an error';
     }
   }
 
@@ -109,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text('Log out'),
               trailing: Icon(Icons.arrow_forward),
             ),
-            Text(errorMessage),
+            Text(errorMessage, style: TextStyle(color: Colors.red)),
           ],
         ),
       ),

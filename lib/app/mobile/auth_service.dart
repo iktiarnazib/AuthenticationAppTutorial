@@ -8,7 +8,7 @@ class AuthService {
 
   User? get currentUser => firebaseAuth.currentUser;
 
-  Stream<User?> get authStateChange => firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChanges => firebaseAuth.authStateChanges();
 
   Future<UserCredential> signIn({
     required String email,
@@ -55,13 +55,13 @@ class AuthService {
   }
 
   Future<void> resetPasswordFromCurrentPassword({
-    required String email,
-    required String oldPassword,
+    required String currentPassword,
     required String newPassword,
+    required String email,
   }) async {
     AuthCredential credential = EmailAuthProvider.credential(
       email: email,
-      password: oldPassword,
+      password: currentPassword,
     );
     await currentUser!.reauthenticateWithCredential(credential);
     await currentUser!.updatePassword(newPassword);

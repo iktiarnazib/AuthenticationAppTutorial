@@ -17,39 +17,44 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   TextEditingController controllerOldPass = TextEditingController();
 
   TextEditingController controllerNewPass = TextEditingController();
-
   String errorMessage = '';
 
-  Future<void> onResetPassword() async {
+  void onResetPass() async {
     try {
       await authService.value.resetPasswordFromCurrentPassword(
-        email: controllerEmail.text,
-        oldPassword: controllerOldPass.text,
+        currentPassword: controllerOldPass.text,
         newPassword: controllerNewPass.text,
+        email: controllerEmail.text,
       );
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog.adaptive(
-            title: Text('Password updated!'),
-            content: Text('Your password has been updated!'),
-            actions: [
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-      errorMessage = '';
+      successDialog();
+      setState(() {
+        errorMessage = '';
+      });
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = e.message ?? 'There was an error';
+        errorMessage = e.message ?? 'There has been an error';
       });
     }
+  }
+
+  void successDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog.adaptive(
+          title: Text('Password Reset Success'),
+          content: Text('Your Password reset has been successful!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -96,7 +101,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             Text(errorMessage, style: TextStyle(color: Colors.red)),
             FilledButton(
               onPressed: () {
-                onResetPassword();
+                onResetPass();
               },
               child: Text('Reset Password'),
               style: FilledButton.styleFrom(
