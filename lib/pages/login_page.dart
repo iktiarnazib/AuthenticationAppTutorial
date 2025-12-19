@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 minimumSize: Size(double.infinity, 40.0),
               ),
             ),
+            SizedBox(height: 10.0),
             GestureDetector(
               onTap: () {
                 Navigator.push(
