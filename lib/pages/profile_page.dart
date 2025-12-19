@@ -1,9 +1,7 @@
 import 'package:authapplication/app/mobile/auth_service.dart';
 import 'package:authapplication/pages/change_username.dart';
 import 'package:authapplication/pages/delete_account_page.dart';
-import 'package:authapplication/pages/login_page.dart';
 import 'package:authapplication/pages/reset_password_page.dart';
-import 'package:authapplication/pages/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
