@@ -1,6 +1,5 @@
 import 'package:authapplication/app/mobile/auth_service.dart';
 import 'package:authapplication/constants/constants.dart';
-import 'package:authapplication/pages/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

@@ -2,7 +2,6 @@ import 'package:authapplication/app/mobile/auth_service.dart';
 import 'package:authapplication/constants/constants.dart';
 import 'package:authapplication/pages/forgotten_password.dart';
 import 'package:authapplication/pages/register_page.dart';
-import 'package:authapplication/widget_tree.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

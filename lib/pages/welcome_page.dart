@@ -1,6 +1,4 @@
 import 'package:authapplication/app/mobile/auth_wrapper.dart';
-import 'package:authapplication/pages/login_page.dart';
-import 'package:authapplication/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
